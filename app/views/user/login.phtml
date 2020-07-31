@@ -1,0 +1,39 @@
+<div class="form-section">
+                    <div class="logo-2">
+                        <a href="#">
+                            <img src="/assets/img/logos/logo-2.png" alt="logo">
+                        </a>
+                    </div>
+                    <h3>Đăng nhập tài khoản</h3>
+                    <form action="#" method="GET">
+                        <div class="form-group form-box">
+                            <?php echo $form->render('email'); ?>
+                            <i class="flaticon-mail-2"></i>
+                        </div>
+                        <div class="form-group form-box">
+                            <?php echo $form->render('password'); ?>                           
+                            <i class="flaticon-password"></i>
+                        </div>                                             
+                        <div class="form-group mb-0 clearfix">
+                            <?php echo $form->render('submit'); ?>
+                            <a href="forgot-password-2.html" class="forgot-password">Forgot Password</a>
+                        </div>
+                        <div class="extra-login clearfix">
+                            <span>Or Login With</span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <ul class="social-list">
+                            <li><a href="#" class="facebook-bg"><i class="fa fa-facebook facebook-i"></i><span>Facebook</span></a></li>
+                            <li><a href="#" class="twitter-bg"><i class="fa fa-twitter twitter-i"></i><span>Twitter</span></a></li>
+                            <li><a href="#" class="google-bg"><i class="fa fa-google google-i"></i><span>Google</span></a></li>
+                        </ul>
+                    </form>
+                    <p>Đăng nhập vào tài khoản Ứng dụng của bạn dưới đây.
+                    <?= $this->tag->linkTo('signup/register', 'Đăng kí tài khoản tại đây') ?>
+                    </p>
+                </div>
+
+
+
+
+                
