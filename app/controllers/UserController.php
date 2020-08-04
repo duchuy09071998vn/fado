@@ -10,9 +10,7 @@ class UserController extends ControllerBase
     public $loginForm;
     public $usersModel;
 
-    public function onConstruct()
-    {
-    }
+   
 
     public function initialize()
     {
@@ -30,6 +28,8 @@ class UserController extends ControllerBase
     }
 
    
+    //Login Submit
+
     public function loginSubmitAction()
     {
         $user = new Users;

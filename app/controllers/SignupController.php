@@ -28,10 +28,13 @@ class SignupController extends ControllerBase
 
         $form->bind($_POST, $user);
         // check form validation
-        if (!$form->isValid()) {
-            foreach ($form->getMessages() as $message) {
+        if (!$form->isValid())
+        {
+            foreach ($form->getMessages() as $message) 
+            {
                 $this->flashSession->error($message);
-                $this->dispatcher->forward([
+                $this->dispatcher->forward(
+                [
                     'controller' => $this->router->getControllerName(),
                     'action'     => 'index',
                 ]);
