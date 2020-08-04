@@ -55,14 +55,6 @@ class SignupController extends ControllerBase
             }
         } */
 
-        // check form validation
-        if(!$form ->isValid($_POST)){
-            $messages =$form ->getMessages();
-            
-            foreach ($messages as $message) {
-             echo $message ,'</br>';
-            }
-        }
 
         #$params = $this ->request ->getPost();
 
@@ -70,18 +62,19 @@ class SignupController extends ControllerBase
 
         $name =$this ->request ->getPost('name',['trim','string']);
         $email =$this ->request ->getPost('email',['trim','email']);
+        $password =$this ->request ->getPost('password',['trim'],['password']);
 
         // Store and check for errors
         $success = $user->save(
-            $this->request->getPost(),
+            $this ->request ->getPost(),
             [
                 "name",
-                "email"
+                "email",
+                "password"
             ]
         );
 
         if ($success) {
-            
              // Direct Flash Message
             $this->flash->success('Cảm ơn bạn đã đăng kí thành công');
 

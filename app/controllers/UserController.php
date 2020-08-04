@@ -24,7 +24,7 @@ class UserController extends ControllerBase
      
     public function loginAction()
     {
-        $this->tag->setTitle('Phalcon :: Login');
+
         // Login Form
         $this->view->form = new LoginForm();
     }
@@ -54,6 +54,7 @@ class UserController extends ControllerBase
 
         $user ->setPassword($this->security->hash($_POST['password']));
         // login with database
-       
+        $email    = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
     }
 }
