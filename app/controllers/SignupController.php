@@ -23,7 +23,7 @@ class SignupController extends ControllerBase
         // check request
         if(!$this ->request->isPost())
         {
-            return $this-> response ->redirect('signup');
+            return $this-> response ->redirect('signup/');
         }
 
         $form->bind($_POST, $user);
@@ -40,33 +40,12 @@ class SignupController extends ControllerBase
                 ]);
                 return;
             }
-        }
-        
-        /* $user->setPassword($this->security->hash($_POST['password']));
-
-        $user->setActive(1);
-        $user->setCreated(time());
-        $user->setUpdated(time());
-        if (!$user->save()) {
-            foreach ($user->getMessages() as $m) {
-                $this->flashSession->error($m);
-                $this->dispatcher->forward([
-                    'controller' => $this->router->getControllerName(),
-                    'action'     => 'register',
-                ]);
-                return;
-            }
-        } */
-
-
-        #$params = $this ->request ->getPost();
-
-        #$name = !empty($params['name'])?trim($params['name']):'';
-
+        }     
+      
         $name =$this ->request ->getPost('name',['trim','string']);
         $email =$this ->request ->getPost('email',['trim','email']);
         $password =$this ->request ->getPost('password',['trim'],['password']);
-
+        
         // Store and check for errors
         $success = $user->save(
             $this ->request ->getPost(),
@@ -77,22 +56,25 @@ class SignupController extends ControllerBase
             ]
         );
 
-        if ($success) {
-             // Direct Flash Message
-            $this->flash->success('Cảm ơn bạn đã đăng kí thành công');
+        // Lưu trữ mật khẩu và mã hóa
+        $user->setPassword($this->security->hash($_POST['password']));
 
-        } else {
-            echo "Xin lỗi, bạn chưa đăng kí thành công: ";
-
-            $messages = $user->getMessages();
-
-            foreach ($messages as $message) {
-                echo $message->getMessage(), "<br/>";
-            }
+        if (!$user->save()) 
+        {
+            foreach ($user->getMessages() as $m)
+            {
+                $this->flashSession->error($m);
+                $this->dispatcher->forward([
+                    'controller' => $this->router->getControllerName(),
+                    'action'     => 'index',
+                ]);
+                return;
+            }            
         }
+        $this->flashSession->success('Cảm ơn bạn đã đăng kí');
+        return $this->response->redirect('user/login');
 
-        $this->view->disable();
-
+        $this->view->disable();              
     }
 }
 

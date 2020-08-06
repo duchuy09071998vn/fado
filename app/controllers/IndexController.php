@@ -8,6 +8,8 @@ class IndexController extends Controller
     {
         $this->view->users = Users::find();
     }
+    
+    
 
 }
 
