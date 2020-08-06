@@ -1,14 +1,17 @@
 <?php
+use Phalcon\Mvc\Controller;
+use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Http\Request;
 
 // use form
-use App\Forms\RegisterForm;
 use App\Forms\LoginForm;
 
 class UserController extends ControllerBase
 {
     public $loginForm;
     public $usersModel;
+
 
     public function initialize()
     {
@@ -21,12 +24,14 @@ class UserController extends ControllerBase
     {
         // Login Form
         $this->view->form = new LoginForm();
+        
     }
 
-   
     //Login SubmitAction
     public function loginSubmitAction()
     {
+        $user = new User();
+        $form = new Form();
 
         // check request
         if (!$this->request->isPost()) 
@@ -42,7 +47,7 @@ class UserController extends ControllerBase
         }
 
         $form->bind($_POST, $user);
-
+        
         // check form validation
         if (!$form->isValid()) 
         {
@@ -54,9 +59,9 @@ class UserController extends ControllerBase
                     'action'     => 'login',
                 ]);
                 return;
-            }
+            }         
         }
-
+        
         // login with database
         $email    = $this->request->getPost('email');
         $password = $this->request->getPost('password');
@@ -69,24 +74,20 @@ class UserController extends ControllerBase
                'email' => $email,
             ]
         ]
-        );
-
         
+        );
+               
         if($user)
         {
             if ($this->security->checkHash($password, $user->password))
-            {               
-                // Set a session
-                $this->session->set('AUTH_ID', $user->id);
-                $this->session->set('AUTH_NAME', $user->name);
-                $this->session->set('AUTH_EMAIL', $user->email);
-                $this->session->set('IS_LOGIN', 1);
-                
+            {        
+                       
                 // The password is valid
-                $this->flashSession->success("Đăng nhập thành công");
+                //$this->flashSession->success("Đăng nhập thành công");
                 return $this->response->redirect('user/profile');
             }
-        } else
+        } 
+        else
         {           
             $this->security->hash(rand());
         }

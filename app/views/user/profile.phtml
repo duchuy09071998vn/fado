@@ -5,7 +5,7 @@
         <div class="card-body">
             <h5 class="card-title">Hello, <?= $this->session->get('AUTH_NAME') ?></h5>
             <p class="card-text"><?= $this->session->get('AUTH_EMAIL') ?></p>
-            <?= $this->tag->linkTo(["###", '<i class="fa fa-sign-out" aria-hidden="true"></i> Logout', "class" => "btn btn-danger"]); ?>
+            <?= $this->tag->linkTo(["#", '<i class="fa fa-sign-out" aria-hidden="true"></i> Logout', "class" => "google-bg"]); ?>
         </div>
     </div>
 </div>

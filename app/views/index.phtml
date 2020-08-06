@@ -9,10 +9,12 @@
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         '../../../www.googletagmanager.com/gtm5445.html?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-W24T6W7');</script>
+
     <!-- End Google Tag Manager -->
     <title>Logdy - Login and Register HTML5 Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    
     <!-- External CSS libraries -->
     <link type="text/css" rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="/assets/fonts/font-awesome/css/font-awesome.min.css">
@@ -33,8 +35,65 @@
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W24T6W7"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                  
 <!-- End Google Tag Manager (noscript) -->
 <div class="page_loader"></div>
+
+<!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Phalcon</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <?= $this->tag->linkTo(["", '<i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span>', "class" => "nav-link"]); ?>
+                    </li>
+                    
+                    
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <?php
+                        # Check User Login
+                        if ($this->session->has('IS_LOGIN'))
+                        {
+                            echo $this->tag->linkTo(
+                            [
+                                "user/profile",
+                                '<i class="fa fa-user" aria-hidden="true"></i> Profile',
+                                "class" => "btn btn-light"
+                            ]);
+
+                            echo "&nbsp;";
+
+                          #  echo $this->tag->linkTo(
+                           # [
+                            #    "user/logout",
+                             #   '<i class="fa fa-sign-out" aria-hidden="true"></i> Logout',
+                              #  "class" => "btn btn-danger"
+                           # ]);
+                        } else 
+                        {
+                            echo $this->tag->linkTo(
+                            [
+                                "user/login",
+                                '<i class="fa fa-sign-in" aria-hidden="true"></i> Login',
+                                "class" => "btn btn-light"
+                            ]);
+                            echo "&nbsp;";
+    
+                            echo $this->tag->linkTo(
+                            [
+                                "signup/index",
+                                '<i class="fa fa-user-plus" aria-hidden="true"></i> Register',
+                                "class" => "btn btn-light"
+                            ]);
+                        }
+                    ?>
+                </form>
+            </div>
+    </nav>
 
 <!-- Login 2 start -->
 <div class="login-2">
@@ -53,7 +112,6 @@
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <!-- Custom JS Script -->
-
 </body>
 
 <!-- Mirrored from theme-vessel-templates.theme-vessel.ey.r.appspot.com/logdy/main/login-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 29 Jul 2020 02:13:52 GMT -->

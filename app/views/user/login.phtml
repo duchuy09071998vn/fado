@@ -6,7 +6,7 @@
                     </div>
                     <h3>Đăng nhập tài khoản</h3>
                     <?php echo $this->flashSession->output() ?>
-                    <?php echo $this->tag->form("user/login"); ?>
+                    <?php echo $this->tag->form("user/login/submit"); ?>
                         <div class="form-group form-box">
                             <?php echo $form->render('email'); ?>
                             <i class="flaticon-mail-2"></i>
@@ -32,7 +32,7 @@
                         </ul> -->
                     </form>
                     <p>Đăng nhập vào tài khoản Ứng dụng của bạn dưới đây.
-                    <?= $this->tag->linkTo('signup/register', 'Đăng kí tài khoản tại đây') ?>
+                    <?= $this->tag->linkTo('signup/', 'Đăng kí tài khoản tại đây') ?>
                     </p>
                 </div>
 
