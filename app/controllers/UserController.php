@@ -3,55 +3,34 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Http\Request;
-
 // use form
 use App\Forms\LoginForm;
-
 class UserController extends ControllerBase
 {
-    public $loginForm;
-    public $usersModel;
-
-
-    public function initialize()
-    {
-        $this->loginForm = new LoginForm();
-        $this->usersModel = new Users();
-    }
-
     //Login Page View   
     public function loginAction()
     {
-        // Login Form
-        $this->view->form = new LoginForm();
-        
+        $this->view->form = new LoginForm();   
+
     }
 
     //Login SubmitAction
     public function loginSubmitAction()
     {
-        $user = new User();
-        $form = new Form();
-
+        $user =new Users();
+        $form =new LoginForm();
         // check request
         if (!$this->request->isPost()) 
         {
-            return $this->response->redirect('user/login');
-        }
-
-        // Validate CSRF token
-        if(!$this->security->checkTolen())
-        {
-            $this->flashSession ->error("Mã không hợp lệ");
-            return $this ->response ->redirect('user/login');
-        }
-
+            return $this->response->redirect('user/login');    
+        }     
         $form->bind($_POST, $user);
-        
+
         // check form validation
-        if (!$form->isValid()) 
+        if(!$form ->isVaild())
         {
-            foreach ($form->getMessages() as $message) {
+            foreach ($form->getMessages() as $message)
+            {
                 $this->flashSession->error($message);
                 $this->dispatcher->forward(
                 [
@@ -59,11 +38,11 @@ class UserController extends ControllerBase
                     'action'     => 'login',
                 ]);
                 return;
-            }         
+            }
         }
-        
-        // login with database
-        $email    = $this->request->getPost('email');
+
+        // Login with databaste
+        $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
         $user = Users::findFirst(
@@ -71,37 +50,48 @@ class UserController extends ControllerBase
             'email = :email:',
             'bind' => 
             [
-               'email' => $email,
+            'email' => $email,
             ]
-        ]
-        
-        );
-               
-        if($user)
+        ]);
+        if ($user) 
         {
             if ($this->security->checkHash($password, $user->password))
-            {        
-                       
-                // The password is valid
+            {
+               
+                // Set a session
+                $this->session->set('AUTH_ID', $user->id);
+                $this->session->set('AUTH_NAME', $user->name);
+                $this->session->set('AUTH_EMAIL', $user->email);  
+                $this->session->set('IS_LOGIN', );     
+                
+
                 //$this->flashSession->success("Đăng nhập thành công");
                 return $this->response->redirect('user/profile');
             }
-        } 
-        else
-        {           
+        } else
+        {
             $this->security->hash(rand());
         }
 
-        // The validation has failed   
-        $this->flashSession->error("Đăng nhập không hợp lệ");
-        return $this->response->redirect('user/login'); 
+         // The validation has failed
+         $this->flashSession->error("Đăng nhập thất bại");
+         return $this->response->redirect('user/login');
+
     }
 
-
-    // Use Profile
-    public function profileAction()
+    public function profileAction() 
     {
         $this->authorized();
     }
+
+    public function logoutAction()
+    {
+        // Destroy the whole session
+        $this->session->destroy();
+        return $this->response->redirect('user/login');
+    }
+    
     
 }
+
+

@@ -20,7 +20,7 @@
                             <a href="forgot-password-2.html" class="forgot-password">Forgot Password</a>
                         </div>
                         
-                        <input type='hidden' name='<?= $this->security->getTokenKey() ?>' value='<?= $this->security->getToken() ?>'/>
+                        <input type='hidden' name='<?php echo $this->security->getTokenKey() ?>'value='<?php echo $this->security->getToken() ?>'/>
                      <!--   <div class="extra-login clearfix">
                             <span>Or Login With</span>
                         </div>
