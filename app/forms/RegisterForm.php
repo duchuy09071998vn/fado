@@ -40,8 +40,8 @@ class RegisterForm extends Form
 
         // form email field validation
         $email->addValidators([
-            new PresenceOf(['message' => 'The email is required']),
-            new Email(['message' => 'The e-mail is not valid']),
+            new PresenceOf(['message' => 'Yêu cầu nhập email']),
+            new Email(['message' => 'Email của bạn không hợp lệ']),
         ]);
 
         /**
@@ -54,9 +54,9 @@ class RegisterForm extends Form
         ]);
 
         $password->addValidators([
-            new PresenceOf(['message' => 'Password is required']),
-            new StringLength(['min' => 5, 'message' => 'Password is too short. Minimum 5 characters.']),
-            new Confirmation(['with' => 'password_confirm', 'message' => 'Password doesn\'t match confirmation.']),
+            new PresenceOf(['message' => 'Yêu cầu nhập password']),
+            new StringLength(['min' => 5, 'message' => 'Password quá ngắn chưa đủ 5 kí tự']),
+            new Confirmation(['with' => 'password_confirm', 'message' => 'Mật khẩu của bạn không khớp.']),
         ]);
 
 
@@ -79,7 +79,7 @@ class RegisterForm extends Form
          */
         $submit = new Submit('submit', [
             "value" => "Register",
-            "class" => "btn btn-primary",
+            "class" => "btn-md btn-theme float-left",
         ]);
 
         $this->add($name);
