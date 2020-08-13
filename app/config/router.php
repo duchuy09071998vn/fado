@@ -14,4 +14,5 @@ $router->add('/user/profile', ['controller' => 'user', 'action' => 'profile']);
 $router->add('/user/logout', ['controller' => 'user', 'action' => 'logout']);
 
 
-$router->handle();
+$router->handle(); 
+
