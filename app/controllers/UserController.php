@@ -81,6 +81,7 @@ class UserController extends ControllerBase
         $this->flashSession->error("Invalid login");
         return $this->response->redirect('user/login');
     }
+
     public function profileAction()
     {
         $this->authorized();
