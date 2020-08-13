@@ -1,99 +1,91 @@
 <?php
- namespace App\Forms;
+namespace App\Forms;
+
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Submit;
-
-use Phalcon\Validation;
+// Validation
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Email;
 
-
 class RegisterForm extends Form
 {
     public function initialize()
     {
-        //form name field
-        $name = new Text(
-            'name',
-            [
-                "class" => "form-group form-box", 
-                "placeholder" => "Mời bạn nhập đầy đủ tên"
-                
-            ]
-            );
-        
-        //form name field  Validation
-        $name ->addValidator(
-            new PresenceOf(['message' => 'Yêu cầu nhập tên ',])
-        );
-             
-        //form email field
-        $email = new Text(
-            'email',
-            [
-                "class" => "form-group form-box",
-                 "placeholder" => "Mời bạn nhập email"
-            ]
-            );
-
-        //form email field  Validation
-        $email ->addValidator(
-            new PresenceOf(['message' => 'Yêu cầu nhập email ',])
-        );    
-
-        $email ->addValidator(
-            new Email(['message' => 'Email không hợp lệ',])  
-        );  
-
-        
-
-         // New Password
-         
-        $password = new Password('password', [
-            "class" => "form-group form-box",
+        /**
+         * Name
+         */
+        $name = new Text('name', [
+            "class" => "form-control",
             // "required" => true,
-            "placeholder" => "Mời bạn nhập mật khẩu"
+            "placeholder" => "Enter Full Name"
+        ]);
+
+        // form name field validation
+        $name->addValidator(
+            new PresenceOf(['message' => 'The name is required'])
+        );
+
+        /**
+         * Email Address
+         */
+        $email = new Text('email', [
+            "class" => "form-control",
+            // "required" => true,
+            "placeholder" => "Enter Email Address"
+        ]);
+
+        // form email field validation
+        $email->addValidators([
+            new PresenceOf(['message' => 'The email is required']),
+            new Email(['message' => 'The e-mail is not valid']),
+        ]);
+
+        /**
+         * New Password
+         */
+        $password = new Password('password', [
+            "class" => "form-control",
+            // "required" => true,
+            "placeholder" => "Your Password"
         ]);
 
         $password->addValidators([
-            new PresenceOf(['message' => 'Yêu cầu nhập password']),
-            new StringLength(['min' => 5, 'message' => 'Password của bạn ít nhất 5 kí tự']),
-            new Confirmation(['with' => 'password_confirm', 'message' => 'Mật khẩu không giống']),
+            new PresenceOf(['message' => 'Password is required']),
+            new StringLength(['min' => 5, 'message' => 'Password is too short. Minimum 5 characters.']),
+            new Confirmation(['with' => 'password_confirm', 'message' => 'Password doesn\'t match confirmation.']),
         ]);
 
 
-        
-         // Confirm Password
-         
+        /**
+         * Confirm Password
+         */
         $passwordNewConfirm = new Password('password_confirm', [
-            "class" => "form-group form-box ",
+            "class" => "form-control",
             // "required" => true,
-            "placeholder" => "Xác nhận mật khẩu"
+            "placeholder" => "Confirm Password"
         ]);
 
         $passwordNewConfirm->addValidators([
-            new PresenceOf(['message' => 'Mời bạn nhập mật khẩu']),
+            new PresenceOf(['message' => 'The confirmation password is required']),
         ]);
 
 
-        //form button submit
-            $submit =new Submit(
-                'submit',
-                [
-                    "value  " => "Submit",
-                    "class" => "btn-md btn-theme float-left", 
-                ]
-            );
+        /**
+         * Submit Button
+         */
+        $submit = new Submit('submit', [
+            "value" => "Register",
+            "class" => "btn btn-primary",
+        ]);
 
         $this->add($name);
         $this->add($email);
         $this->add($password);
         $this->add($passwordNewConfirm);
         $this->add($submit);
-
     }
 }
