@@ -19,7 +19,7 @@ class RegisterForm extends Form
          * Name
          */
         $name = new Text('name', [
-            "class" => "form-control",
+            "class" => "form-group form-box",
             // "required" => true,
             "placeholder" => "Enter Full Name"
         ]);
@@ -33,7 +33,7 @@ class RegisterForm extends Form
          * Email Address
          */
         $email = new Text('email', [
-            "class" => "form-control",
+            "class" => "form-group form-box",
             // "required" => true,
             "placeholder" => "Enter Email Address"
         ]);
@@ -48,7 +48,7 @@ class RegisterForm extends Form
          * New Password
          */
         $password = new Password('password', [
-            "class" => "form-control",
+            "class" => "form-group form-box",
             // "required" => true,
             "placeholder" => "Your Password"
         ]);
@@ -64,7 +64,7 @@ class RegisterForm extends Form
          * Confirm Password
          */
         $passwordNewConfirm = new Password('password_confirm', [
-            "class" => "form-control",
+            "class" => "form-group form-box",
             // "required" => true,
             "placeholder" => "Confirm Password"
         ]);
