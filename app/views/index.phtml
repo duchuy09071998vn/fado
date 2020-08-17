@@ -51,26 +51,71 @@
                         <?= $this->tag->linkTo(["", '<i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span>', "class" => "nav-link"]); ?>
                     </li>
                     
+                    <li class="nav-item active">
+                        <?php
+                            # Check User Login
+                            if ($this->session->has('IS_LOGIN'))
+                            {
+                                echo $this->tag->linkTo(
+                                    [
+                                    "article/create", 
+                                    '<i class="fa fa-plus" aria-hidden="true"></i> Add Article <span class="sr-only">(current)</span>', 
+                                    "class" => "nav-link"
+                                    ]
+                                );
+                            }
+                        ?>
+                    </li>
+
                     
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <?php
-                        
-                            echo $this->tag->linkTo(
-                            [
+                <?php
+                        # Check User Login
+                        if ($this->session->has('IS_LOGIN'))
+                        {
+                            echo $this->tag->linkTo
+                            (
+                                [
+                                "user/profile",
+                                '<i class="fa fa-user" aria-hidden="true"></i> Profile',
+                                "class" => "btn btn-light"
+                                ]
+                            );
+
+                            echo "&nbsp;";
+
+                            echo $this->tag->linkTo
+                            (
+                                [
+                                "user/logout",
+                                '<i class="fa fa-sign-out" aria-hidden="true"></i> Logout',
+                                "class" => "btn btn-light"
+                                ]
+                            );
+
+
+                        } else 
+                        {
+                            echo $this->tag->linkTo
+                            (
+                                [
                                 "user/login",
                                 '<i class="fa fa-sign-in" aria-hidden="true"></i> Login',
                                 "class" => "btn btn-light"
-                            ]);
+                                ]
+                            );
                             echo "&nbsp;";
     
-                            echo $this->tag->linkTo(
-                            [
-                                "signup/index",
-                                '<i class="fa fa-user-plus" aria-hidden="true"></i> Register',
+                            echo $this->tag->linkTo
+                            (
+                                [
+                                "signup/register",
+                                '<i class="fa fa-sign-in" aria-hidden="true"></i> Register',
                                 "class" => "btn btn-light"
-                            ]);
-
+                                ]
+                            );
+                        }
                     ?>
                 </form>
             </div>
