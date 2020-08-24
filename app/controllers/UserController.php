@@ -22,17 +22,11 @@ class UserController extends ControllerBase
 
     public function loginAction()
     {
-        $this->tag->setTitle('Phalcon :: Login');
+       
         // Login Form
         $this->view->form = new LoginForm();
     }
 
-    /**
-     * Login Action
-     * @method: POST
-     * @param: email
-     * @param: password
-     */
     public function loginSubmitAction()
     {
         // check request
@@ -41,6 +35,7 @@ class UserController extends ControllerBase
         }
 
         $this->loginForm->bind($_POST, $this->usersModel);
+        
         // check form validation
         if (!$this->loginForm->isValid()) {
             foreach ($this->loginForm->getMessages() as $message) {
@@ -53,6 +48,7 @@ class UserController extends ControllerBase
             }
         }
         
+        // Login with database
         $email    = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         $user = Users::findFirst([ 
@@ -65,11 +61,12 @@ class UserController extends ControllerBase
         if ($user) {
             if ($this->security->checkHash($password, $user->password))
             {
+                 // Set a session
                 $this->session->set('AUTH_ID', $user->id);
                 $this->session->set('AUTH_NAME', $user->name);
                 $this->session->set('AUTH_EMAIL', $user->email);
-                $this->session->set('AUTH_CREATED', $user->created);
-                $this->session->set('AUTH_UPDATED', $user->updated);
+                //$this->session->set('AUTH_CREATED', $user->created);
+                //$this->session->set('AUTH_UPDATED', $user->updated);
                 $this->session->set('IS_LOGIN', 1);
 
                 return $this->response->redirect('user/profile');
@@ -78,7 +75,7 @@ class UserController extends ControllerBase
             $this->security->hash(rand());
         }
 
-        $this->flashSession->error("Invalid login");
+        $this->flashSession->error("Mật khẩu của bạn không đúng");
         return $this->response->redirect('user/login');
     }
 
@@ -89,6 +86,7 @@ class UserController extends ControllerBase
 
     public function logoutAction()
     {
+        // Destroy the whole session
         $this->session->destroy();
         return $this->response->redirect('user/login');
     }

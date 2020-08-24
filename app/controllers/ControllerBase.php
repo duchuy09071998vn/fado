@@ -11,7 +11,8 @@ class ControllerBase extends Controller
 
     public function authorized()
     {
-        if (!$this->isLoggedIn()) {
+        if (!$this->isLoggedIn()) 
+        {
             return $this->response->redirect('user/login');
         }
     }
@@ -19,7 +20,8 @@ class ControllerBase extends Controller
     public function isLoggedIn()
     {
         // Check if the variable is defined
-        if ($this->session->has('AUTH_NAME') AND $this->session->has('AUTH_EMAIL') AND $this->session->has('AUTH_CREATED') AND $this->session->has('AUTH_UPDATED')) {
+        if ($this->session->has('AUTH_NAME') AND $this->session->has('AUTH_EMAIL')) 
+        {
             return true;
         }
         return false;
